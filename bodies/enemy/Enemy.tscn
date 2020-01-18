@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://bodies/enemy/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://bodies/particle/ParticleCPU.tscn" type="PackedScene" id=2]
+[ext_resource path="res://glow.tres" type="Material" id=3]
+[ext_resource path="res://bodies/enemy/enemy.png" type="Texture" id=4]
+
+
+
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 0, -30, 25, 29, -25, 29 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemy",
+]]
+script = ExtResource( 1 )
+Particle = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 3 )
+position = Vector2( 7, 0 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 7, 0 )
+rotation = 1.5708
+shape = SubResource( 1 )

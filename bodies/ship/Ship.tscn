@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://bodies/ship/Ship.gd" type="Script" id=1]
+[ext_resource path="res://bodies/bullet/Bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://glow.tres" type="Material" id=3]
+[ext_resource path="res://bodies/ship/ship.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Percent.tscn" type="PackedScene" id=5]
+[ext_resource path="res://bodies/particle/Particle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://bodies/particle/particle1.png" type="Texture" id=7]
+[ext_resource path="res://bodies/particle/ParticleCPU.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 0, -30, 25, 29, -25, 29 )
+
+[node name="Ship" type="KinematicBody2D" groups=[
+"ship",
+]]
+script = ExtResource( 1 )
+Bullet = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 3 )
+position = Vector2( 7, 0 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 7, 0 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Spawn" type="Position2D" parent="."]
+position = Vector2( 30, 0 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Percent" parent="." instance=ExtResource( 5 )]
+
+[node name="Particle" parent="." instance=ExtResource( 6 )]
+visible = false
+texture = ExtResource( 7 )
+kill_on_timeout = false
+
+[node name="ParticleCPU" parent="." instance=ExtResource( 8 )]
+kill_on_timeout = false

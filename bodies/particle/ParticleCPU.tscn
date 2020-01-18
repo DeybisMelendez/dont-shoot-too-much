@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://glow.tres" type="Material" id=1]
+[ext_resource path="res://bodies/particle/particle2.png" type="Texture" id=2]
+[ext_resource path="res://bodies/particle/ParticleCPU.gd" type="Script" id=3]
+[ext_resource path="res://audio/explosion.wav" type="AudioStream" id=4]
+
+
+
+
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 0 )
+
+[node name="ParticleCPU" type="CPUParticles2D"]
+material = ExtResource( 1 )
+emitting = false
+amount = 6
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 2 )
+emission_shape = 1
+emission_sphere_radius = 6.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 20.0
+initial_velocity_random = 0.5
+angle = 360.0
+angle_random = 1.0
+color_ramp = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )

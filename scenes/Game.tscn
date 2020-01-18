@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/Game.gd" type="Script" id=1]
+[ext_resource path="res://bodies/enemy/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://bodies/orb/Orb.tscn" type="PackedScene" id=3]
+[ext_resource path="res://bodies/ship/Ship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://glow.tres" type="Material" id=5]
+[ext_resource path="res://scenes/95.png" type="Texture" id=6]
+[ext_resource path="res://glowNormal.tres" type="Material" id=7]
+[ext_resource path="res://scenes/bg.png" type="Texture" id=8]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/2 = true
+glow_levels/5 = false
+glow_strength = 1.1
+glow_bloom = 0.2
+glow_blend_mode = 1
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.05, 1.05 ) ]
+}
+
+[node name="Game" type="Node2D"]
+pause_mode = 2
+position = Vector2( 512, 300 )
+script = ExtResource( 1 )
+Enemy = ExtResource( 2 )
+Orb = ExtResource( 3 )
+
+[node name="Node2D" type="Node2D" parent="."]
+pause_mode = 1
+position = Vector2( -512, -300 )
+
+[node name="Ship" parent="Node2D" instance=ExtResource( 4 )]
+position = Vector2( 512, 300 )
+
+[node name="bg2" type="Sprite" parent="."]
+material = ExtResource( 5 )
+position = Vector2( -512, -300 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="bg" type="Sprite" parent="."]
+material = ExtResource( 7 )
+position = Vector2( -512, -300 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+pause_mode = 1
+environment = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+pause_mode = 1
+autoplay = "default"
+anims/default = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+pause_mode = 1
+wait_time = 2.0
+autostart = true
